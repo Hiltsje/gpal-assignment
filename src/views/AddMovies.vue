@@ -84,10 +84,10 @@
 				'Nina Simone',
 			],
 			titleRules: [
-				v => !!v || 'Movie title is required',
+				v => !!v || 'Movie title is required'
 			],
 			screeningDateRules: [
-				v => !!v || 'Screening date is required' //TODO: add string format validation ##-##-####
+				v => !!v || 'Screening date is required'
 			],
 			snackbar: {
 				text: '',
@@ -101,9 +101,8 @@
 		},
 		methods: {
 			createMovie () {
-				console.log('Add movie', this.movie);
-				this.$store.commit('createMovie',this.movie)
-				this.snackbar.text = 'Your movie had been added';
+				this.$store.commit('createMovie',this.movie);
+				this.snackbar.text = this.movie.title + ' has been added';
 				this.snackbar.visible = true;
 			},
 			submitMovie() {
