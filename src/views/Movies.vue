@@ -1,11 +1,8 @@
 <template>
-	<div>
-		<v-row no-gutters>
+	<div class="mt-10">
+		<v-row>
 			<v-col cols="12" offset-sm="1" sm="10" offset-md="2" md="8" offset-lg="4" lg="4">
-				<h1>Movies</h1>
-
-
-				<v-row no-gutters>
+				<v-row>
 					<v-col cols="12" sm="6" md="4" lg="4">
 						<p>Total movies: {{movies.length}}</p>
 					</v-col>
@@ -14,7 +11,7 @@
 					</v-col>
 				</v-row>
 
-				<v-row no-gutters>
+				<v-row>
 					<v-col cols="12">
 						<v-data-table
 								v-model="selected"
@@ -105,7 +102,7 @@
 		},
 		methods: {
 			deleteMovies() {
-				this.$store.commit('deleteMovies', this.selected)
+				this.$store.commit('deleteMovies', this.selected);
 				this.snackbar.text = 'Movie(s) have been successfully deleted';
 				this.snackbar.visible = true;
 				this.selected = [];

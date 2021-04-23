@@ -1,10 +1,14 @@
 <template>
 	<v-app>
-		<v-app-bar app>
-			<div id="nav">
-				<router-link to="/">Add movie</router-link> |
-				<router-link to="/movies">Movies</router-link>
-			</div>
+		<v-app-bar
+				color="teal lighten-3"
+				dark
+				app
+		>
+			<v-tabs fixed-tabs>
+				<v-tab to="/movies">Movies</v-tab>
+				<v-tab to="/">Add movie</v-tab>
+			</v-tabs>
 		</v-app-bar>
 
 		<v-main>
@@ -28,16 +32,4 @@
 		color: #2c3e50;
 	}
 
-	#nav {
-		padding: 30px;
-
-		a {
-			font-weight: bold;
-			color: #2c3e50;
-
-			&.router-link-exact-active {
-				color: #42b983;
-			}
-		}
-	}
 </style>

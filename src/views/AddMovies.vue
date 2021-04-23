@@ -1,15 +1,11 @@
 <template>
-	<v-row no-gutters>
-		<v-col cols="12" offset-sm="1" sm="10" offset-md="2" md="8" offset-lg="4" lg="4" >
-
-			<h1>Step 1: Select movie and screening date</h1>
-			<p>{{movie.title ? movie.title : 'unknown'}} - {{movie.screeningDate ? movie.screeningDate : '##-##-####'}} </p>
-			<hr>
-			<p> {{storeMovies}}</p>
+	<v-row>
+		<v-col cols="12" offset-sm="1" sm="10" offset-md="2" md="8" offset-lg="4" lg="4">
 			<v-form
 					ref="form"
 					v-model="valid"
 					lazy-validation
+					class="mt-6"
 			>
 				<v-select
 						v-model="movie.title"
@@ -20,12 +16,10 @@
 				></v-select>
 				<v-text-field
 						v-model="movie.screeningDate"
-						:counter="10"
 						:rules="screeningDateRules"
 						label="Screening date"
 						required
 				></v-text-field>
-
 
 				<v-btn
 						:disabled="!valid"
@@ -35,7 +29,6 @@
 				>
 					Submit
 				</v-btn>
-
 				<v-btn
 						color="error"
 						class="mr-4"
@@ -43,7 +36,6 @@
 				>
 					Reset Form
 				</v-btn>
-
 				<v-btn
 						color="warning"
 						@click="resetValidation"
@@ -72,11 +64,6 @@
 				title: null,
 				screeningDate: null
 			},
-
-			movies: [{
-				title: 'vue title',
-				screeningDate: 'vue date'
-			}],
 			upcommingTitles: [
 				'Tulipani!',
 				'the Guernsey Literary and Potato Peel Pie Society',
@@ -94,30 +81,22 @@
 				visible: false
 			}
 		}),
-		computed: {
-			storeMovies () {
-				return this.$store.state.movies
-			}
-		},
 		methods: {
-			createMovie () {
-				this.$store.commit('createMovie',this.movie);
+			createMovie() {
+				this.$store.commit('createMovie', this.movie);
 				this.snackbar.text = this.movie.title + ' has been added';
 				this.snackbar.visible = true;
 			},
 			submitMovie() {
-				if(this.$refs.form.validate()) {
+				if (this.$refs.form.validate()) {
 					this.createMovie();
 				}
-				console.log('submit clicked');
-
 			},
 			validate() {
 				this.$refs.form.validate()
 			},
 			reset() {
-				this.$refs.form.reset()
-				this.decrement();
+				this.$refs.form.reset();
 			},
 			resetValidation() {
 				this.$refs.form.resetValidation()
