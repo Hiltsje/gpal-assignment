@@ -36,34 +36,34 @@ export default new Vuex.Store({
 			}
 		]
 	},
-		mutations: {
-			createMovie(state, movieData) {
-				let movie = {
-					id: state.idCount + 1,
-					title: movieData.title,
-					screeningDate: movieData.screeningDate
-				};
+	mutations: {
+		createMovie(state, movieData) {
+			let movie = {
+				id: state.idCount + 1,
+				title: movieData.title,
+				screeningDate: movieData.screeningDate
+			};
 
-				state.movies.push(movie)
-				state.idCount++
-
-			},
-			deleteMovies(state, movies) {
-				for (var i = 0; i < movies.length; i++) {
-					removeFromState(movies[i].id);
-				}
-
-				function removeFromState(id) {
-					for (var i = 0; i < state.movies.length; i++) {
-						if (state.movies[i].id === id) {
-							state.movies.splice(i, 1);
-							break;
-						}
-					}
-				}
-			},
+			state.movies.push(movie)
+			state.idCount++
 
 		},
-		actions: {},
-		modules: {}
-	})
+		deleteMovies(state, movies) {
+			for (var i = 0; i < movies.length; i++) {
+				removeFromState(movies[i].id);
+			}
+
+			function removeFromState(id) {
+				for (var i = 0; i < state.movies.length; i++) {
+					if (state.movies[i].id === id) {
+						state.movies.splice(i, 1);
+						break;
+					}
+				}
+			}
+		},
+
+	},
+	actions: {},
+	modules: {}
+})

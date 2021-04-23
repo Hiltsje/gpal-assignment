@@ -9,10 +9,9 @@
 					<v-col cols="12" sm="6" md="4" lg="4">
 						<p>Total movies: {{movies.length}}</p>
 					</v-col>
-<!--					<v-col cols="12" sm="6" md="4" lg="4">-->
-<!--						<p>Selected: {{selected}}</p>-->
-<!--					</v-col>-->
-
+					<v-col cols="12" sm="6" md="4" lg="4">
+						<p>Average title length: {{averageTitleLength}}</p>
+					</v-col>
 				</v-row>
 
 				<v-row no-gutters>
@@ -23,8 +22,8 @@
 								:items="movies"
 								:single-select="false"
 								item-key="id"
+								:items-per-page="5"
 								show-select
-								itemsPerPage="5"
 								class="elevation-1"
 						>
 						</v-data-table>
@@ -55,7 +54,6 @@
 
 
 <script>
-
 	export default {
 		data: () => ({
 			selected: [],
@@ -82,21 +80,42 @@
 			snackbar: {
 				text: '',
 				visible: false
-			}
+			},
+			movieTitles: []
+
 		}),
+		mounted() {
+			this.setMovieTitleArray();
+		},
+		watch: {
+			movies: {
+				deep: true,
+				handler() {
+					this.setMovieTitleArray();
+				}
+			}
+		},
 		computed: {
 			movies() {
 				return this.$store.state.movies
-			}
+			},
+			averageTitleLength() {
+				return Math.round(this.movieTitles.join('').length / this.movieTitles.length);
+			},
 		},
 		methods: {
-			deleteMovies () {
-				console.log('Delete movie', this.selected);
-				this.$store.commit('deleteMovies',this.selected)
+			deleteMovies() {
+				this.$store.commit('deleteMovies', this.selected)
 				this.snackbar.text = 'Movie(s) have been successfully deleted';
 				this.snackbar.visible = true;
 				this.selected = [];
 			},
+			setMovieTitleArray() {
+				this.movieTitles = [];
+				this.movies.forEach(movie =>
+					this.movieTitles.push(movie.title)
+				);
+			}
 		},
 	}
 </script>
