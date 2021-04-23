@@ -51,6 +51,14 @@
 					Reset Validation
 				</v-btn>
 			</v-form>
+			<v-snackbar
+					v-model="snackbar.visible"
+					:timeout="2000"
+					color="success"
+					centered
+					light
+			> {{ snackbar.text }}
+			</v-snackbar>
 		</v-col>
 	</v-row>
 </template>
@@ -80,7 +88,11 @@
 			],
 			screeningDateRules: [
 				v => !!v || 'Screening date is required' //TODO: add string format validation ##-##-####
-			]
+			],
+			snackbar: {
+				text: '',
+				visible: false
+			}
 		}),
 		computed: {
 			storeMovies () {
@@ -91,6 +103,8 @@
 			createMovie () {
 				console.log('Add movie', this.movie);
 				this.$store.commit('createMovie',this.movie)
+				this.snackbar.text = 'Your movie had been added';
+				this.snackbar.visible = true;
 			},
 			submitMovie() {
 				if(this.$refs.form.validate()) {
