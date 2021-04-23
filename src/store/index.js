@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
 	state: {
-		idCount: 5,
+		idCount: 6,
 		movies: [
 			{
 				id: 1,
@@ -44,17 +44,16 @@ export default new Vuex.Store({
 				screeningDate: movieData.screeningDate
 			};
 
-			state.movies.push(movie)
+			state.movies.push(movie);
 			state.idCount++
-
 		},
 		deleteMovies(state, movies) {
-			for (var i = 0; i < movies.length; i++) {
-				removeFromState(movies[i].id);
+			for (let i = 0; i < movies.length; i++) {
+				deleteMovie(movies[i].id);
 			}
 
-			function removeFromState(id) {
-				for (var i = 0; i < state.movies.length; i++) {
+			function deleteMovie(id) {
+				for (let i = 0; i < state.movies.length; i++) {
 					if (state.movies[i].id === id) {
 						state.movies.splice(i, 1);
 						break;
@@ -62,7 +61,6 @@ export default new Vuex.Store({
 				}
 			}
 		},
-
 	},
 	actions: {},
 	modules: {}
