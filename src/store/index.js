@@ -29,6 +29,10 @@ export default new Vuex.Store({
 				id: 5,
 				title: 'Gravity',
 				screeningDate: 'Friday 21-05-2021'
+			}, {
+				id: 6,
+				title: 'The intern',
+				screeningDate: 'Friday 28-05-2021'
 			}
 		]
 	},
@@ -38,20 +42,23 @@ export default new Vuex.Store({
 					id: state.idCount + 1,
 					title: movieData.title,
 					screeningDate: movieData.screeningDate
-				}
-				console.log('store:createeMovie', movie);
+				};
+
 				state.movies.push(movie)
 				state.idCount++
 
 			},
-			deleteMovie(state, id) { //TODO: untested
-				console.log('store:deleteMovie', id);
+			deleteMovies(state, movies) {
+				for (var i = 0; i < movies.length; i++) {
+					removeFromState(movies[i].id);
+				}
 
-				for (var i = 0; i < state.movies.length; i++) {
-					if (state.movies[i].id === id) {
-						state.movies.splice(i, 1);
-						console.log('store: state.movies[i]', state.movies[i]);
-						break;
+				function removeFromState(id) {
+					for (var i = 0; i < state.movies.length; i++) {
+						if (state.movies[i].id === id) {
+							state.movies.splice(i, 1);
+							break;
+						}
 					}
 				}
 			},

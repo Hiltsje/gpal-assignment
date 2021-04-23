@@ -21,17 +21,35 @@
 								v-model="selected"
 								:headers="headers"
 								:items="movies"
-								:single-select="true"
+								:single-select="false"
 								item-key="id"
 								show-select
+								itemsPerPage="5"
 								class="elevation-1"
 						>
 						</v-data-table>
+
+						<v-btn
+								:disabled="!selected.length"
+								color="error"
+								class="mr-4 mt-4"
+								@click="deleteMovies"
+						>
+							Delete selected movies
+						</v-btn>
 					</v-col>
 				</v-row>
 
 			</v-col>
 		</v-row>
+		<v-snackbar
+				v-model="snackbar.visible"
+				:timeout="2000"
+				color="success"
+				top
+				light
+		> {{ snackbar.text }}
+		</v-snackbar>
 	</div>
 </template>
 
@@ -46,7 +64,7 @@
 					text: '#',
 					align: 'start',
 					sortable: true,
-					value: 'tid'
+					value: 'id'
 				},
 				{
 					text: 'Title',
@@ -61,12 +79,24 @@
 					value: 'screeningDate'
 				}
 			],
+			snackbar: {
+				text: '',
+				visible: false
+			}
 		}),
 		computed: {
 			movies() {
 				return this.$store.state.movies
 			}
 		},
-		methods: {},
+		methods: {
+			deleteMovies () {
+				console.log('Delete movie', this.selected);
+				this.$store.commit('deleteMovies',this.selected)
+				this.snackbar.text = 'Movie(s) have been successfully deleted';
+				this.snackbar.visible = true;
+				this.selected = [];
+			},
+		},
 	}
 </script>
